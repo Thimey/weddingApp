@@ -6,7 +6,6 @@ export const useAuth = (initialAuthUser: AuthUser) => {
     const [authUser, setAuth] = React.useState(initialAuthUser)
 
     const setAuthUser = (authUser: any) => {
-        console.log('setting auth user', authUser)
         setAuth(authUser)
     }
 

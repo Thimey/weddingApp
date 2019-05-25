@@ -1,6 +1,11 @@
 import * as React from 'react'
 import { withStyles, WithStyles, createStyles, Theme } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
+import Avatar from '@material-ui/core/Avatar'
+
+import LogoutButton from 'auth/components/LogoutButton'
+
+import * as simonandkat from 'assets/sandk.jpg'
 
 const styles = createStyles({
     container: {
@@ -9,8 +14,15 @@ const styles = createStyles({
         alignItems: 'center',
         height: '100%',
     },
-
+    avatar: {
+        height: '80px',
+        width: '80px',
+        marginTop: '2rem',
+    },
     dateContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         marginTop: '2rem'
     },
     date: {
@@ -21,8 +33,11 @@ const styles = createStyles({
         fontWeight: 'bolder',
     },
     note: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         marginTop: '2rem',
-        justifySelf: 'flex-end',
+        marginBottom: '1rem',
     }
 })
 
@@ -35,13 +50,18 @@ const SaveTheDate: React.SFC<Props> = ({ classes }) => {
     return (
         <div className={classes.container}>
             <Typography align='center' variant='display1'>
-                Simon &amp; Kathryn are getting married!!
+                Simon &amp; Kathryn are getting married!
             </Typography>
 
+            <Avatar
+                className={classes.avatar}
+                src={simonandkat}
+            />
+
             <div className={classes.dateContainer}>
-                {/* <Typography variant='h6' align='center'>
+                <Typography variant='h6' align='center'>
                     Save the date:
-                </Typography> */}
+                </Typography>
 
                 <Typography className={classes.date} variant='h6'>
                     09/11/2019
@@ -52,9 +72,18 @@ const SaveTheDate: React.SFC<Props> = ({ classes }) => {
                 Berry, NSW 2535
             </Typography>
 
-            <Typography className={classes.note} variant='caption'>
-                You'll be updated when we update this page with more info soon!
-            </Typography>
+            <div className={classes.note}>
+                <Typography align='center' variant='caption'>
+                    Consider booking accommodation early.
+                </Typography>
+
+                <Typography align='center'  variant='caption'>
+                    We’ll update you with more information soon!
+                </Typography>
+
+            </div>
+
+            {/* <LogoutButton /> */}
         </div>
     )
 }

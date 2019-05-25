@@ -10,6 +10,7 @@ const styles = createStyles({
         width: '80%',
         maxWidth: '400px',
         padding: '2rem',
+        paddingTop: 0,
     },
 })
 

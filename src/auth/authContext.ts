@@ -12,7 +12,7 @@ const authContextDefault: AuthContext = {
         authState: AuthState.NotAuthenticated,
         authData: null,
     },
-    setAuthUser: () => { console.log('asdas')},
+    setAuthUser: () => {},
 }
 
 export const AuthContext = React.createContext(authContextDefault)

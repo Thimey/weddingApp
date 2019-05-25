@@ -7,22 +7,14 @@ import { logout } from 'auth/actions'
 import { AuthContext } from 'auth/authContext'
 
 const styles = createStyles({
-    container: {
-        width: '100%',
-        position: 'fixed',
-        top: 0,
-        display: 'flex',
-        justifyContent: 'flex-end'
-    },
     logout: {
         cursor: 'pointer',
-        marginRight: '1rem',
     }
 })
 
 export interface Props extends WithStyles<typeof styles> {}
 
-const TopMenuBar: React.FC<Props> = ({ classes }) => {
+const LogoutButton: React.FC<Props> = ({ classes }) => {
     const { setAuthUser } = React.useContext(AuthContext)
     const [loggingOut, setLoggingOut] = React.useState(false)
 
@@ -41,20 +33,18 @@ const TopMenuBar: React.FC<Props> = ({ classes }) => {
         : 'primary'
 
     return (
-        <div className={classes.container}>
-            <Typography
-                className={classes.logout}
-                onClick={handleLogout}
-                color={color}
-            >
-                {
-                    loggingOut
-                        ? 'logging out...'
-                        : 'logout'
-                }
-            </Typography>
-        </div>
+        <Typography
+            className={classes.logout}
+            onClick={handleLogout}
+            color={color}
+        >
+            {
+                loggingOut
+                    ? 'logging out...'
+                    : 'logout'
+            }
+        </Typography>
     )
 }
 
-export default withStyles(styles)(TopMenuBar)
+export default withStyles(styles)(LogoutButton)

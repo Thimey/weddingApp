@@ -8,8 +8,10 @@ import Button from 'components/Button'
 
 import { forgotPassword } from 'auth/actions'
 import { AuthContext } from 'auth/authContext'
-import AuthFormContainer from './AuthFormContainer'
 import { AuthState } from 'auth/types'
+import { useTextInput } from 'lib/useTextInput'
+
+import AuthFormContainer from './AuthFormContainer'
 
 const styles = createStyles({
     titleContainer: {
@@ -32,7 +34,10 @@ export interface LoginDetails {
 export interface Props extends WithStyles<typeof styles> {}
 
 const Login: React.SFC<Props> = ({ classes }) => {
-    const [username, onNameChange] = React.useState('')
+    const usernameInput = useTextInput({
+        initialValue: '',
+        transform: v => v.toLowerCase()
+    })
     const [loading, setLoading] = React.useState(false)
     const [error, setError] = React.useState('')
 
@@ -42,7 +47,9 @@ const Login: React.SFC<Props> = ({ classes }) => {
         setLoading(true)
 
         try {
-            const { authState, authData } = await forgotPassword({ username })
+            const { authState, authData } = await forgotPassword({
+                username: usernameInput.value,
+            })
 
             setLoading(false)
 
@@ -61,14 +68,13 @@ const Login: React.SFC<Props> = ({ classes }) => {
         })
     }
 
-    const disableButton = !username || loading
+    const disableButton = !usernameInput.value || loading
 
     return (
         <AuthFormContainer onSubmit={handleForgotPassword}>
             <TextInput
                 label='name'
-                value={username}
-                onChange={onNameChange}
+                {...usernameInput}
             />
 
             {
