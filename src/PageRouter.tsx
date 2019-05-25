@@ -26,7 +26,7 @@ const getPage = (authState: AuthState) => {
         return <ForgotPassword />
     }
 
-    if (true || authState === AuthState.ForgotPasswordSubmit) {
+    if (authState === AuthState.ForgotPasswordSubmit) {
         return <ChangePassword type='forgotSubmit' />
     }
 
@@ -38,7 +38,7 @@ const getPage = (authState: AuthState) => {
         return <ChangePassword type='newRequired' />
     }
 
-    // assertNever(authState, 'unhandled authState page')
+    assertNever(authState, 'unhandled authState page')
 }
 
 function PageRouter({ classes }) {

@@ -13,7 +13,11 @@ export const submitForgotPassword = async ({
     code,
 }: ResetPasswordDetails) => {
     try {
-        await Auth.forgotPasswordSubmit(username, code, password)
+        await Auth.forgotPasswordSubmit(
+            username.trim(),
+            code,
+            password
+        )
 
         return {
             authState: AuthState.NotAuthenticated,

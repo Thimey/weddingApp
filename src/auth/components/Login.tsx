@@ -1,10 +1,9 @@
 import * as React from 'react'
 
 import { withStyles, WithStyles, createStyles } from '@material-ui/core'
-import Avatar from '@material-ui/core/Avatar'
 import Typography from '@material-ui/core/Typography'
 
-import * as sandk from 'assets/sandk.jpg'
+import * as weddingLogo from 'assets/weddingLogo.png'
 import TextInput from 'components/TextInput'
 import Button from 'components/Button'
 
@@ -22,10 +21,9 @@ const styles = createStyles({
         alignItems: 'center',
         marginBottom: '1rem',
     },
-    avatar: {
-        width: '80px',
-        height: '80px',
-    },
+    weddingLogo: {
+        width: '150px',
+    }
 })
 
 export interface LoginDetails {
@@ -36,7 +34,10 @@ export interface LoginDetails {
 export interface Props extends WithStyles<typeof styles> {}
 
 const Login: React.SFC<Props> = ({ classes }) => {
-    const usernameInput = useTextInput({ initialValue: '' })
+    const usernameInput = useTextInput({
+        initialValue: '',
+        transform: v => v.toLowerCase()
+    })
     const passwordInput = useTextInput({ initialValue: '' })
     const [loading, setLoading] = React.useState(false)
     const [loginError, setLoginError] = React.useState('')
@@ -57,6 +58,8 @@ const Login: React.SFC<Props> = ({ classes }) => {
             setAuthUser({ authState, authData })
         } catch(e) {
             setLoginError(e.message)
+
+            setLoading(false)
         }
     }
 
@@ -72,10 +75,14 @@ const Login: React.SFC<Props> = ({ classes }) => {
     return (
         <AuthFormContainer onSubmit={handleLogin}>
             <div className={classes.titleContainer}>
-                <Avatar
+                <img
+                    className={classes.weddingLogo}
+                    src={weddingLogo}
+                />
+                {/* <Avatar
                     className={classes.avatar}
                     src={sandk}
-                />
+                /> */}
             </div>
 
             <TextInput

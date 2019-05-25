@@ -12,7 +12,11 @@ const styles = createStyles({
         position: 'fixed',
         top: 0,
         display: 'flex',
-        justifyContent: 'center'
+        justifyContent: 'flex-end'
+    },
+    logout: {
+        cursor: 'pointer',
+        marginRight: '1rem',
     }
 })
 
@@ -39,6 +43,7 @@ const TopMenuBar: React.FC<Props> = ({ classes }) => {
     return (
         <div className={classes.container}>
             <Typography
+                className={classes.logout}
                 onClick={handleLogout}
                 color={color}
             >

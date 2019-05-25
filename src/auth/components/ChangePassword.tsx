@@ -31,9 +31,9 @@ export interface LoginDetails {
     password: string
 }
 
-const passwordInvalid = (password1: string) => (password2: string) => {
+const passwordInvalid = (password1: string, password2: string) => {
     if (password1 !== password2) {
-        return 'Passwords do not match, please retype'
+        return 'Passwords do not match'
     }
 }
 
@@ -52,7 +52,6 @@ const ChangePassword: React.SFC<Props> = ({ type }) => {
         initialValue: '',
         validations: [
             textMinCharacter(6),
-            passwordInvalid(passwordRetypeInput.value)
         ]
     })
 
@@ -61,7 +60,7 @@ const ChangePassword: React.SFC<Props> = ({ type }) => {
 
     const { authUser, setAuthUser } = React.useContext(AuthContext)
 
-    const handleChangePassword = async () => {
+    const handleSubmit = async () => {
         try {
             if (type === 'newRequired') {
                 setLoading(true)
@@ -89,13 +88,19 @@ const ChangePassword: React.SFC<Props> = ({ type }) => {
             }
         } catch(e) {
             setError(e.message)
+
+            setLoading(false)
         }
     }
 
     const disableButton = passwordInput.invalid || loading
 
+    const passwordsNoMatch = passwordInvalid(passwordRetypeInput.value, passwordInput.value)
+
+    const formError = passwordsNoMatch || error
+
     return (
-        <AuthFormContainer onSubmit={handleChangePassword}>
+        <AuthFormContainer onSubmit={handleSubmit}>
             {
                 type === 'forgotSubmit' &&
                     <TextInput
@@ -118,18 +123,14 @@ const ChangePassword: React.SFC<Props> = ({ type }) => {
                 {...passwordRetypeInput}
             />
 
-            {
-                error && (
-                    <Typography color='error'>
-                        {error}
-                    </Typography>
-                )
-            }
+            <Typography color='error'>
+                {formError || ''}
+            </Typography>
 
             <Button
                 type='submit'
                 disabled={disableButton}
-                onClick={handleChangePassword}
+                onClick={handleSubmit}
             >
                 Update password
             </Button>

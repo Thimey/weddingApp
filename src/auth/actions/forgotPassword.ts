@@ -3,13 +3,15 @@ import { AuthState } from 'auth/types'
 
 export const forgotPassword = async ({ username }: { username: string }) => {
     try {
-        const authData = await Auth.forgotPassword(username)
+        const trimmedUsername = username.trim()
+
+        const authData = await Auth.forgotPassword(trimmedUsername)
 
         return {
             authState: AuthState.ForgotPasswordSubmit,
             authData: {
                 ...authData,
-                username,
+                username: trimmedUsername,
             },
         }
     } catch(e) {

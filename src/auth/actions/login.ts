@@ -8,7 +8,9 @@ interface LoginDetails {
 
 export const login = async ({ username, password }: LoginDetails): Promise<AuthUser> => {
     try {
-        const authData = await Auth.signIn(username, password)
+        const trimmedUsername = username.trim()
+
+        const authData = await Auth.signIn(trimmedUsername, password)
 
         if (authData.signInUserSession !== null) {
             return { authState: AuthState.Authenticated, authData };

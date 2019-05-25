@@ -5,17 +5,22 @@ export type Validation = (value: string) => string | undefined
 export interface UseTextArgs {
     initialValue: string
     validations?: Validation[]
+    transform?: (value: string) => string
 }
 
-export const useTextInput = ({ initialValue, validations }: UseTextArgs) => {
+export const useTextInput = ({ initialValue, validations, transform }: UseTextArgs) => {
     const [
         { value, validationMessages },
         setValue,
     ] = useState({ value: initialValue, validationMessages: [] })
 
     const onChange = (newValue: string) => {
+        const transformedValue = transform && typeof transform === 'function'
+            ? transform(newValue)
+            : newValue
+
         setValue({
-            value: newValue,
+            value: transformedValue,
             validationMessages: validations
                 ? validations.reduce((acc, validationFn) => {
                     const message = validationFn(newValue)

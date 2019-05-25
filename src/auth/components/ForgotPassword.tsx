@@ -49,6 +49,8 @@ const Login: React.SFC<Props> = ({ classes }) => {
             setAuthUser({ authState, authData })
         } catch(e) {
             setError(e.message)
+
+            setLoading(false)
         }
     }
 
