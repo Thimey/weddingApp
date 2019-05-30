@@ -24,6 +24,9 @@ const styles = createStyles({
         width: '80px',
         height: '80px',
     },
+    clickText: {
+        cursor: 'pointer',
+    }
 })
 
 export interface LoginDetails {
@@ -93,7 +96,11 @@ const Login: React.SFC<Props> = ({ classes }) => {
                 Request new password
             </Button>
 
-            <Typography onClick={handleBackToLogin} color='primary'>
+            <Typography
+                className={classes.clickText}
+                onClick={handleBackToLogin}
+                color='primary'
+            >
                 Back to login
             </Typography>
         </AuthFormContainer>

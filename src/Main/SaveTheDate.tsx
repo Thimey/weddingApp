@@ -3,8 +3,6 @@ import { withStyles, WithStyles, createStyles, Theme } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 import Avatar from '@material-ui/core/Avatar'
 
-import LogoutButton from 'auth/components/LogoutButton'
-
 import * as simonandkat from 'assets/sandk.jpg'
 
 const styles = createStyles({
@@ -12,11 +10,16 @@ const styles = createStyles({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        justifyContent: 'center',
         height: '100%',
+        padding: '1rem',
+    },
+    title: {
+        fontWeight: 'bolder',
     },
     avatar: {
-        height: '80px',
-        width: '80px',
+        height: '160px',
+        width: '160px',
         marginTop: '2rem',
     },
     dateContainer: {
@@ -60,11 +63,11 @@ const SaveTheDate: React.SFC<Props> = ({ classes }) => {
 
             <div className={classes.dateContainer}>
                 <Typography variant='h6' align='center'>
-                    Save the date:
+                    Save the date
                 </Typography>
 
                 <Typography className={classes.date} variant='h6'>
-                    09/11/2019
+                    09 - 11 - 2019
                 </Typography>
             </div>
 
@@ -82,8 +85,6 @@ const SaveTheDate: React.SFC<Props> = ({ classes }) => {
                 </Typography>
 
             </div>
-
-            {/* <LogoutButton /> */}
         </div>
     )
 }

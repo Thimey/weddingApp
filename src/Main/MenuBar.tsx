@@ -9,7 +9,7 @@ const styles = createStyles({
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
-        marginBottom: '1rem'
+        marginBottom: '4rem'
     },
 })
 

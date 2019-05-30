@@ -3,7 +3,6 @@ import * as React from 'react'
 import { withStyles, WithStyles, createStyles } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
 
-import * as weddingLogo from 'assets/weddingLogo.png'
 import TextInput from 'components/TextInput'
 import Button from 'components/Button'
 
@@ -15,14 +14,8 @@ import { AuthState } from 'auth/types'
 import { useTextInput } from 'lib/useTextInput'
 
 const styles = createStyles({
-    titleContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        marginBottom: '1rem',
-    },
-    weddingLogo: {
-        width: '150px',
+    clickText: {
+        cursor: 'pointer',
     }
 })
 
@@ -61,6 +54,8 @@ const Login: React.SFC<Props> = ({ classes }) => {
 
             setLoading(false)
         }
+
+        setLoading(false)
     }
 
     const handleForgotPassword = () => {
@@ -74,17 +69,6 @@ const Login: React.SFC<Props> = ({ classes }) => {
 
     return (
         <AuthFormContainer onSubmit={handleLogin}>
-            <div className={classes.titleContainer}>
-                <img
-                    className={classes.weddingLogo}
-                    src={weddingLogo}
-                />
-                {/* <Avatar
-                    className={classes.avatar}
-                    src={sandk}
-                /> */}
-            </div>
-
             <TextInput
                 label='name'
                 {...usernameInput}
@@ -112,7 +96,11 @@ const Login: React.SFC<Props> = ({ classes }) => {
                 Login
             </Button>
 
-            <Typography onClick={handleForgotPassword} color='primary'>
+            <Typography
+                className={classes.clickText}
+                onClick={handleForgotPassword}
+                color='primary'
+            >
                 Forgot password
             </Typography>
         </AuthFormContainer>

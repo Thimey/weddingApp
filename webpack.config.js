@@ -30,14 +30,15 @@ module.exports = {
                 loader: 'awesome-typescript-loader'
             },
             {
-                test: /\.(png|svg|jpg|gif)$/,
+                test: /\.(png|svg|jpg|gif|ico)$/,
                 use: ['file-loader']
             }
         ]
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: 'src/index.html'
+            template: 'src/index.html',
+            favicon: 'src/assets/favicon.ico'
         }),
         new webpack.HotModuleReplacementPlugin(),
     ]

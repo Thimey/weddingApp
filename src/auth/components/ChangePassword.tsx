@@ -99,8 +99,12 @@ const ChangePassword: React.SFC<Props> = ({ type }) => {
 
     const formError = passwordsNoMatch || error
 
+    const title = type === 'forgotSubmit'
+        ? 'Set new password'
+        : 'Please update your password'
+
     return (
-        <AuthFormContainer onSubmit={handleSubmit}>
+        <AuthFormContainer title={title} onSubmit={handleSubmit}>
             {
                 type === 'forgotSubmit' &&
                     <TextInput

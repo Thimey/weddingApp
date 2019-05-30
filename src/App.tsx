@@ -1,9 +1,13 @@
 import * as React from 'react'
 import Amplify from 'aws-amplify'
+import ThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 
 import { Authenticator } from 'auth/components'
-import PageRouter from './PageRouter'
+import { theme } from 'theme'
 
+import 'assets/favicon.ico'
+
+import PageRouter from './PageRouter'
 import awsExports from './aws-exports'
 
 Amplify.configure(awsExports)
@@ -11,7 +15,9 @@ Amplify.configure(awsExports)
 function App() {
     return (
         <Authenticator>
-            <PageRouter />
+            <ThemeProvider theme={theme}>
+                <PageRouter />
+            </ThemeProvider>
         </Authenticator>
     )
 }

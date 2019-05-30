@@ -21,19 +21,14 @@ const styles = (theme: Theme) => createStyles({
     },
     logo: {
         marginTop: '6rem',
-        marginBottom: '4rem',
-        width: '200px',
+        marginBottom: '2rem',
+        width: '150px',
     },
 })
 
 function Main({ classes }) {
     return (
         <div className={classes.container}>
-            <img
-                className={classes.logo}
-                src={weddingLogo}
-            />
-
             <div className={classes.contentContainer}>
                 <SaveTheDate />
             </div>
