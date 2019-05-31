@@ -12,6 +12,7 @@ const styles = createStyles({
         justifyContent: 'center',
         alignItems: 'center',
         width: '80%',
+        height: '100vh',
     },
     formContainer: {
         width: '100%',
@@ -40,27 +41,36 @@ export interface Props extends WithStyles<typeof styles> {
     title?: string
 }
 
-const AuthFormContainer: React.SFC<Props> = ({ classes, children, onSubmit, title }) => (
-    <div className={classes.container}>
-        <div className={classes.logoContainer}>
-            <img
-                className={classes.weddingLogo}
-                src={weddingLogo}
-            />
-        </div>
+const AuthFormContainer: React.SFC<Props> = ({ classes, children, onSubmit, title }) => {
+    const handleSubmit = (e: any) => {
+        // Stop the fucking page from refreshing
+        e.preventDefault()
 
-        {
-            title && (
-                <Typography className={classes.title}>
-                    {title}
-                </Typography>
-            )
-        }
-        <form onSubmit={onSubmit} className={classes.formContainer}>
-            {children}
-        </form>
-    </div>
-)
+        onSubmit()
+    }
+
+    return (
+        <div className={classes.container}>
+            <div className={classes.logoContainer}>
+                <img
+                    className={classes.weddingLogo}
+                    src={weddingLogo}
+                />
+            </div>
+
+            {
+                title && (
+                    <Typography className={classes.title}>
+                        {title}
+                    </Typography>
+                )
+            }
+            <form onSubmit={handleSubmit} className={classes.formContainer}>
+                {children}
+            </form>
+        </div>
+    )
+}
 
 
 export default withStyles(styles)(AuthFormContainer)

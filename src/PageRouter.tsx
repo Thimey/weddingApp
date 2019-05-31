@@ -10,7 +10,7 @@ import Main from 'Main'
 
 const styles = {
     container: {
-        height: '100vh',
+        // height: '100vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

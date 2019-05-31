@@ -12,10 +12,11 @@ const styles = createStyles({
         alignItems: 'center',
         justifyContent: 'center',
         height: '100%',
-        padding: '1rem',
+        padding: '2rem',
     },
     title: {
-        fontWeight: 'bolder',
+        fontWeight: 'bold',
+        fontFamily: 'Homemade, cursive, Roboto, sans-serif',
     },
     avatar: {
         height: '160px',
@@ -52,7 +53,7 @@ const SaveTheDate: React.SFC<Props> = ({ classes }) => {
 
     return (
         <div className={classes.container}>
-            <Typography align='center' variant='display1'>
+            <Typography align='center' variant='display1' className={classes.title}>
                 Simon &amp; Kathryn are getting married!
             </Typography>
 
