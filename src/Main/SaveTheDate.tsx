@@ -15,8 +15,9 @@ const styles = createStyles({
         padding: '2rem',
     },
     title: {
-        fontWeight: 'bold',
-        fontFamily: 'Homemade, cursive, Roboto, sans-serif',
+        color: 'black',
+        fontFamily: 'Homemade Apple, cursive, Roboto, sans-serif',
+        lineHeight: '4rem',
     },
     avatar: {
         height: '160px',

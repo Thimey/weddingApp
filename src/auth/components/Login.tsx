@@ -54,8 +54,6 @@ const Login: React.SFC<Props> = ({ classes }) => {
 
             setLoading(false)
         }
-
-        setLoading(false)
     }
 
     const handleForgotPassword = () => {
