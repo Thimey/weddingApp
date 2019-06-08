@@ -8,3 +8,8 @@ dist/
 node_modules/
 aws-exports.js
 awsconfiguration.json
+
+# Local environment variables
+.envrc
+
+guests.csv

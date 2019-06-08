@@ -1,5 +1,7 @@
 import * as React from 'react'
 import Amplify from 'aws-amplify'
+import '@babel/polyfill'
+
 import ThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 
 import { Authenticator } from 'auth/components'

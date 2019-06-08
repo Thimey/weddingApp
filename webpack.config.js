@@ -26,8 +26,8 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.tsx?$/,
-                loader: 'awesome-typescript-loader'
+                test: /\.(ts|tsx)$/,
+                loader: 'babel-loader'
             },
             {
                 test: /\.(png|svg|jpg|gif|ico)$/,

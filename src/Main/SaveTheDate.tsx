@@ -16,8 +16,7 @@ const styles = createStyles({
     },
     title: {
         color: 'black',
-        fontFamily: 'Homemade Apple, cursive, Roboto, sans-serif',
-        lineHeight: '4rem',
+        fontFamily: 'Fredericka the Great, cursive, Roboto, sans-serif',
     },
     avatar: {
         height: '160px',
@@ -54,7 +53,7 @@ const SaveTheDate: React.SFC<Props> = ({ classes }) => {
 
     return (
         <div className={classes.container}>
-            <Typography align='center' variant='display1' className={classes.title}>
+            <Typography align='center' variant='display2' className={classes.title}>
                 Simon &amp; Kathryn are getting married!
             </Typography>
 
