@@ -5,7 +5,7 @@ const parse = require('csv-parser')
 
 const AWS = require('aws-sdk')
 
-const cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider({ region: 'ap-southeast-2' })
+const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider({ region: 'ap-southeast-2' })
 
 const SEND_INVITES_FOR_REAL = false
 
@@ -63,11 +63,11 @@ async function createUsers(users) {
         const cognitoParams = getUserCognitoParams({ username, email, phone, fullname }, false)
 
         if (SEND_INVITES_FOR_REAL) {
-            cognitoidentityserviceprovider.adminCreateUser(cognitoParams, function(err, data) {
+            cognitoIdentityServiceProvider.adminCreateUser(cognitoParams, function(err, data) {
                 if (err) {
                     console.log(err, err.stack)
                 } else {
-                    console.log(`Sent ${username} invite`)
+                    console.log(`Sent ${username} invite:`, data)
                 }
             })
         } else {
