@@ -78,6 +78,8 @@ async function createUsers(users) {
     }, 2000)
 }
 
+console.log('hello')
+
 const guests = []
 
 fs.createReadStream(path.resolve(__dirname, '../guests.csv'))
