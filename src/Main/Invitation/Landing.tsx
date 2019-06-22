@@ -76,12 +76,12 @@ const Landing: React.SFC<Props> = ({ classes }) => {
                 <ImageButton src={downloadInviteButton} alt='downloadInvite' href={invitePdf} />
             </div>
 
-            <div className={classes.note}>
+            {/* <div className={classes.note}>
 
-                {/* <Typography align='center'  variant='caption'>
+                <Typography align='center'  variant='caption'>
                     We’ll update you with more information soon!
-                </Typography> */}
-            </div>
+                </Typography>
+            </div> */}
         </>
     )
 }
