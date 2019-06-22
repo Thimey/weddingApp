@@ -3,6 +3,7 @@ import { API } from 'aws-amplify'
 import Typography from '@material-ui/core/Typography'
 import { withStyles, WithStyles, createStyles, Theme, CircularProgress } from '@material-ui/core'
 
+import FormLabel from '@material-ui/core/FormLabel'
 import FormControl from '@material-ui/core/FormControl'
 import FormGroup from '@material-ui/core/FormGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
@@ -22,6 +23,16 @@ const PATH = '/details'
 const styles = createStyles({
     container: {
         width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    formContainer: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        fontFamily: 'Raleway',
     },
     home: {
         ...getHeaderButtonStyles('left')
@@ -33,6 +44,12 @@ const styles = createStyles({
     },
     attendingCheckboxesContainer: {
         marginLeft: '2rem',
+    },
+    dietaryFormLabel: {
+        marginTop: '1rem',
+        marginLeft: '-2rem'
+    },
+    dietaryForm: {
     }
 })
 
@@ -77,17 +94,17 @@ interface ActionAttendance {
     value: 'attending' | 'notAttending'
 }
 
-interface DietaryInfo {
+interface ActionDietaryInfo {
     type: 'dietaryInfo'
     value: State['dietaryInfo']
 }
 
-interface DietaryOther {
+interface ActionDietaryOther {
     type: 'dietaryOther'
     value: State['dietaryOther']
 }
 
-interface FormSaved {
+interface ActionFormSaved {
     type: 'formSaved'
     value: boolean
 }
@@ -95,9 +112,9 @@ interface FormSaved {
 type Action = ActionInitialise
     | ActionAttendanceEvent
     | ActionAttendance
-    | DietaryInfo
-    | DietaryOther
-    | FormSaved
+    | ActionDietaryInfo
+    | ActionDietaryOther
+    | ActionFormSaved
 
 const reducer = (state: State, action: Action): State => {
     switch (action.type) {
@@ -114,13 +131,24 @@ const reducer = (state: State, action: Action): State => {
             }
         case 'ceremony':
         case 'reception':
-        case 'recoveryBrunch':
-            return {
+        case 'recoveryBrunch': {
+            const newState = {
                 ...state,
                 [action.type]: action.value,
                 formSaved: false,
                 pristine: false,
             }
+
+            const noDietaryInfoNeeded = !newState.reception && !newState.recoveryBrunch
+
+            return noDietaryInfoNeeded
+                ? {
+                    ...newState,
+                    dietaryInfo: null,
+                    dietaryOther: null,
+                }
+                : newState
+        }
         case 'dietaryInfo':
             return {
                 ...state,
@@ -209,10 +237,9 @@ const Rsvp: React.FC<Props> = ({ classes }) => {
                     type: 'initialise',
                     value: savedState,
                 })
-
-                setLoading(false)
             }
 
+            setLoading(false)
         }
 
         getDetails()
@@ -271,6 +298,11 @@ const Rsvp: React.FC<Props> = ({ classes }) => {
         value: !state[type],
     })
 
+    const onDietaryInfoChange = (value: State['dietaryInfo']) => () => dispatch({
+        type: 'dietaryInfo',
+        value,
+    })
+
     const noEventsSelected = state.attendance === 'attending'
         && !state.ceremony
         && !state.reception
@@ -290,7 +322,7 @@ const Rsvp: React.FC<Props> = ({ classes }) => {
                         </div>
                     )
                     : (
-                        <>
+                        <div className={classes.formContainer}>
                             <FormControl>
                                 <FormControlLabel onChange={onAttendanceChange('notAttending')} control={<Radio checked={state.attendance === 'notAttending'} />} label='I regretfully cannot attend' />
                                 <FormControlLabel onChange={onAttendanceChange('attending')} control={<Radio checked={state.attendance === 'attending' } />} label='I would love to attend' />
@@ -325,6 +357,32 @@ const Rsvp: React.FC<Props> = ({ classes }) => {
                                                     }
                                                     label="Recovery Brunch (Sunday, 12th)"
                                                 />
+                                                {
+                                                    (state.reception || state.recoveryBrunch) && (
+                                                        <>
+                                                            <FormLabel className={classes.dietaryFormLabel}>
+                                                                Special dietary requirements?
+                                                            </FormLabel>
+                                                            <FormGroup className={classes.dietaryForm}>
+                                                                {/* <FormControlLabel
+                                                                    onChange={onDietaryInfoChange('vegetarian')}
+                                                                    control={<Radio checked={state.dietaryInfo === 'vegetarian'} />}
+                                                                    label='Vegetarian'
+                                                                /> */}
+                                                                <FormControlLabel
+                                                                    onChange={onDietaryInfoChange('vegetarian')}
+                                                                    control={<Radio checked={state.dietaryInfo === 'vegetarian'} />}
+                                                                    label='Vegetarian'
+                                                                />
+                                                                <FormControlLabel
+                                                                    onChange={onDietaryInfoChange('vegan')}
+                                                                    control={<Radio checked={state.dietaryInfo === 'vegan' } />}
+                                                                    label='Vegan'
+                                                                />
+                                                            </FormGroup>
+                                                        </>
+                                                    )
+                                                }
                                             </FormGroup>
                                             <FormHelperText hidden={!noEventsSelected}>
                                                 You said you were coming, let us know which events you will attend!
@@ -334,7 +392,14 @@ const Rsvp: React.FC<Props> = ({ classes }) => {
                             </FormControl>
                             <Button
                                 fullWidth
-                                disabled={!state.attendance || loading || saving || state.formSaved || state.pristine}
+                                disabled={
+                                    !state.attendance
+                                    || loading
+                                    || saving
+                                    || state.formSaved
+                                    || state.pristine
+                                    || noEventsSelected
+                                }
                                 onClick={onSave}
                             >
                                 {
@@ -343,7 +408,7 @@ const Rsvp: React.FC<Props> = ({ classes }) => {
                                         : 'Save'
                                 }
                             </Button>
-                        </>
+                        </div>
                     )
             }
             {

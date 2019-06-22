@@ -2,7 +2,7 @@ import { createMuiTheme } from '@material-ui/core'
 
 export const theme = createMuiTheme({
     typography: {
-        fontFamily: 'CGAlarmFont, Raleway, sans-serif'
+        fontFamily: 'Raleway, sans-serif'
     },
     palette: {
         primary: {

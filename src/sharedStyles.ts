@@ -15,3 +15,7 @@ export const getHeaderButtonStyles = (position: 'left' | 'right') => (
             left: 10,
         }
 )
+
+export const funkyFont = {
+    fontFamily: 'CGAlarmFont, Raleway, sans-serif'
+}

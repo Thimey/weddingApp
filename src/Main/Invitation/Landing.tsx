@@ -8,14 +8,14 @@ import * as rsvpButton from 'assets/rsvpButton.jpg'
 import * as downloadInviteButton from 'assets/downloadInviteButton.jpg'
 import * as invitePdf from 'assets/invite.pdf'
 
+import { funkyFont } from 'sharedStyles'
 import { InvitationPageContext } from './invitationPageContext'
 
 import ImageButton from 'components/ImageButton'
 
 const styles = createStyles({
     title: {
-        color: 'black',
-        fontFamily: 'CGAlarmFont, Fredericka the Great, cursive, Roboto, sans-serif',
+        ...funkyFont,
     },
     avatar: {
         height: '160px',
@@ -32,7 +32,7 @@ const styles = createStyles({
         display: 'flex',
     },
     date: {
-        fontWeight: 'bold',
+        ...funkyFont,
     },
     address: {
         marginTop: '2rem',
@@ -78,9 +78,9 @@ const Landing: React.SFC<Props> = ({ classes }) => {
 
             <div className={classes.note}>
 
-                <Typography align='center'  variant='caption'>
+                {/* <Typography align='center'  variant='caption'>
                     We’ll update you with more information soon!
-                </Typography>
+                </Typography> */}
             </div>
         </>
     )
