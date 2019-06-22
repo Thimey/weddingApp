@@ -9,22 +9,22 @@ const styles = createStyles({
         marginTop: '1rem',
         marginBottom: '1rem',
     },
-    cssLabel: {
-        '&$cssFocused': {
-            color: 'black',
-        },
-    },
-    cssFocused: {},
-    cssUnderline: {
-        '&:after': {
-            borderBottomColor: 'black',
-        },
-    },
-    cssOutlinedInput: {
-        '&$cssFocused $notchedOutline': {
-            borderColor: 'black',
-        },
-    },
+    // cssLabel: {
+    //     '&$cssFocused': {
+    //         color: 'black',
+    //     },
+    // },
+    // cssFocused: {},
+    // cssUnderline: {
+    //     '&:after': {
+    //         borderBottomColor: 'black',
+    //     },
+    // },
+    // cssOutlinedInput: {
+    //     '&$cssFocused $notchedOutline': {
+    //         borderColor: 'black',
+    //     },
+    // },
     notchedOutline: {},
 })
 
@@ -60,16 +60,16 @@ const TextInput: React.SFC<Props> = ({
                 variant='outlined'
                 error={invalid}
                 type={type}
-                InputLabelProps={{
-                  classes: {
-                    root: classes.cssLabel,
-                    focused: classes.cssFocused,
-                  },
-                }}
+                // InputLabelProps={{
+                //   classes: {
+                //     root: classes.cssLabel,
+                //     focused: classes.cssFocused,
+                //   },
+                // }}
                 InputProps={{
                   classes: {
-                    root: classes.cssOutlinedInput,
-                    focused: classes.cssFocused,
+                    // root: classes.cssOutlinedInput,
+                    // focused: classes.cssFocused,
                     notchedOutline: classes.notchedOutline,
                   },
                 }}

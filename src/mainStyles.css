@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'CGAlarmFont';
+  src: url("./assets/CGAlarmFont-Regular.woff") format("woff"),
+       url("./assets/CGAlarmFont-Regular.otf") format("opentype");
+  font-weight: normal;
+
+}

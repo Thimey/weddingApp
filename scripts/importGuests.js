@@ -7,14 +7,16 @@ const AWS = require('aws-sdk')
 
 const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider({ region: 'ap-southeast-2' })
 
-const SEND_INVITES_FOR_REAL = false
+const SEND_INVITES_FOR_REAL = true
+const SEND_DELAY_MS = 1000
 
 function getUserCognitoParams({ username, email, phone, fullname }, resend) {
     const params = {
         UserPoolId: process.env.USER_POOL_ID,
         Username: username,
         DesiredDeliveryMediums: [
-            'SMS', 'EMAIL',
+            'SMS',
+            'EMAIL',
         ],
         TemporaryPassword: 'abc123',
         UserAttributes: [
@@ -75,10 +77,10 @@ async function createUsers(users) {
         }
 
         createUsers(remainingUsers)
-    }, 2000)
+    }, SEND_DELAY_MS)
 }
 
-console.log('hello')
+const onlyOverrideUsernames = []
 
 const guests = []
 
@@ -93,11 +95,18 @@ fs.createReadStream(path.resolve(__dirname, '../guests.csv'))
         }
     })
     .on('end',function(){
-        const usersToSend = guests.reduce((acc, { username, email, phone, fullname, dontSend }) => (
-            dontSend !== 'TRUE' && username && email && phone && fullname
+        const usersToSend = guests.reduce((acc, { username, email, phone, fullname, dontSend, sent }) => {
+            if (onlyOverrideUsernames.length) {
+                return onlyOverrideUsernames.includes(username)
+                    ? [...acc, { username, email, phone, fullname }]
+                    : acc
+            }
+
+
+            return sent !== 'TRUE' && dontSend !== 'TRUE' && username && email && phone && fullname
                 ? [...acc, { username, email, phone, fullname }]
                 : acc
-        ), [])
+        }, [])
 
         createUsers(usersToSend)
     })

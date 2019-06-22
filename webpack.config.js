@@ -30,7 +30,15 @@ module.exports = {
                 loader: 'babel-loader'
             },
             {
-                test: /\.(png|svg|jpg|gif|ico)$/,
+              test: /\.s?css$/,
+              loaders: ['style-loader', 'css-loader']
+            },
+            // {
+            //   test: /\.(eot|svg|ttf|woff|woff2|otf)$/,
+            //   loader: 'file-loader?name=/fonts/[name].[ext]'
+            // },
+            {
+                test: /\.(png|svg|jpg|gif|ico|woff|otf|pdf)$/,
                 use: ['file-loader']
             }
         ]

@@ -4,7 +4,9 @@ import { withStyles, createStyles, Theme } from '@material-ui/core'
 import * as weddingLogo from 'assets/weddingLogo.png'
 
 import MenuBar from './MenuBar'
-import SaveTheDate from './SaveTheDate'
+import Invitation from './Invitation'
+import { InvitationPageContext } from './Invitation/invitationPageContext'
+import { useInvitationPage } from './Invitation/useInvitationPage'
 
 const styles = (theme: Theme) => createStyles({
     container: {
@@ -27,10 +29,14 @@ const styles = (theme: Theme) => createStyles({
 })
 
 function Main({ classes }) {
+    const invitationPage = useInvitationPage('landing')
+
     return (
         <div className={classes.container}>
             <div className={classes.contentContainer}>
-                <SaveTheDate />
+                <InvitationPageContext.Provider value={invitationPage}>
+                    <Invitation />
+                </InvitationPageContext.Provider>
             </div>
 
             <MenuBar />
