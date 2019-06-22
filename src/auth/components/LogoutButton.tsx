@@ -6,9 +6,11 @@ import { withStyles, createStyles, WithStyles } from '@material-ui/core'
 import { logout } from 'auth/actions'
 import { AuthContext } from 'auth/authContext'
 
+import { getHeaderButtonStyles } from 'sharedStyles'
+
 const styles = createStyles({
     logout: {
-        cursor: 'pointer',
+        ...getHeaderButtonStyles('right'),
     }
 })
 

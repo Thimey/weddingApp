@@ -1,0 +1,5 @@
+{
+    "tableName": "weddingGuestData",
+    "partitionKeyName": "guest",
+    "partitionKeyType": "S"
+}

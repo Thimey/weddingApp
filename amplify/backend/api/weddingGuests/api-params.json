@@ -1,0 +1,35 @@
+{
+    "paths": [
+        {
+            "name": "/details",
+            "lambdaFunction": "simonandkatweddingguestsdetails",
+            "privacy": {
+                "private": true,
+                "auth": "rw"
+            }
+        }
+    ],
+    "resourceName": "weddingGuests",
+    "apiName": "weddingGuests",
+    "functionArns": [
+        {
+            "lambdaFunction": "simonandkatweddingguestsdetails"
+        }
+    ],
+    "privacy": {
+        "auth": 1,
+        "unauth": 0,
+        "authRoleName": "simonandkatwedding-20190505153234-authRole",
+        "unAuthRoleName": "simonandkatwedding-20190505153234-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "simonandkatweddingguestsdetails",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}

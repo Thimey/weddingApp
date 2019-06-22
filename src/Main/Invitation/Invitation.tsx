@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { withStyles, WithStyles, createStyles, Theme } from '@material-ui/core'
 
+import LogoutButton from 'auth/components/LogoutButton'
 import { InvitationPageContext } from './invitationPageContext'
 import Landing from './Landing'
 import Rsvp from './Rsvp'
@@ -37,6 +38,7 @@ const Invitation: React.SFC<Props> = ({ classes }) => {
 
     return (
         <div className={classes.container}>
+            <LogoutButton />
             {
                 renderPage()
             }
