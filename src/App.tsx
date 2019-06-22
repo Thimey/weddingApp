@@ -16,11 +16,11 @@ Amplify.configure(awsExports)
 
 function App() {
     return (
-        <Authenticator>
-            <ThemeProvider theme={theme}>
-                <PageRouter />
-            </ThemeProvider>
-        </Authenticator>
+        <ThemeProvider theme={theme}>
+            <Authenticator>
+                    <PageRouter />
+            </Authenticator>
+        </ThemeProvider>
     )
 }
 

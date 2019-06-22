@@ -38,13 +38,6 @@ const styles = createStyles({
         marginTop: '2rem',
         fontWeight: 'bolder',
     },
-    note: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        marginTop: '2rem',
-        marginBottom: '1rem',
-    }
 })
 
 export interface Props extends WithStyles<typeof styles> {
@@ -75,13 +68,6 @@ const Landing: React.SFC<Props> = ({ classes }) => {
                 <ImageButton src={rsvpButton} alt='rsvp' onClick={() => setPage('rsvp')} />
                 <ImageButton src={downloadInviteButton} alt='downloadInvite' href={invitePdf} />
             </div>
-
-            {/* <div className={classes.note}>
-
-                <Typography align='center'  variant='caption'>
-                    We’ll update you with more information soon!
-                </Typography>
-            </div> */}
         </>
     )
 }

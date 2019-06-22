@@ -1,13 +1,28 @@
 import * as React from 'react'
 import Auth from '@aws-amplify/auth'
 
+import { withStyles, WithStyles, createStyles, Theme } from '@material-ui/core'
 import CircularProgress from '@material-ui/core/CircularProgress'
 
 import { AuthState, AuthUser } from '../types'
 import { AuthContext } from '../authContext'
 import { useAuth } from '../useAuth'
 
-const Authenticator: React.FC = ({ children }) => {
+const styles = createStyles({
+    loaderContainer: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
+        width: '100%',
+    }
+})
+
+export interface Props extends WithStyles<typeof styles> {
+
+}
+
+const Authenticator: React.FC = ({ children, classes }) => {
     const auth = useAuth({
         authState: AuthState.NotAuthenticated,
         authData: null,
@@ -40,11 +55,15 @@ const Authenticator: React.FC = ({ children }) => {
         <AuthContext.Provider value={auth}>
             {
                 initialising
-                    ? <CircularProgress />
+                    ? (
+                        <div className={classes.loaderContainer}>
+                            <CircularProgress />
+                        </div>
+                    )
                     : children
             }
         </AuthContext.Provider>
     )
 }
 
-export default Authenticator
+export default withStyles(styles)(Authenticator)

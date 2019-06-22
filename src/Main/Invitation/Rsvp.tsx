@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { API } from 'aws-amplify'
 import Typography from '@material-ui/core/Typography'
-import { withStyles, WithStyles, createStyles, Theme, CircularProgress } from '@material-ui/core'
+import { withStyles, WithStyles, createStyles, Theme } from '@material-ui/core'
 
 import FormLabel from '@material-ui/core/FormLabel'
 import FormControl from '@material-ui/core/FormControl'
@@ -12,6 +12,7 @@ import Checkbox from '@material-ui/core/Checkbox'
 import Radio from '@material-ui/core/Radio'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 import * as rsvpButton from 'assets/rsvpButton.jpg'
 
@@ -49,6 +50,9 @@ const styles = (theme: Theme) => createStyles({
     home: {
         ...getHeaderButtonStyles('left')
     },
+    rsvpImage: {
+        width: '200px',
+    },
     loadingProgress: {
         display: 'flex',
         alignItems: 'center',
@@ -66,6 +70,16 @@ const styles = (theme: Theme) => createStyles({
     },
     saveButton: {
         marginTop: '2rem',
+    },
+    shanks: {
+        marginTop: '1rem',
+    },
+    note: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginTop: '2rem',
+        marginBottom: '1rem',
     }
 })
 
@@ -331,7 +345,9 @@ const Rsvp: React.FC<Props> = ({ classes }) => {
             <Typography className={classes.home} onClick={() => setPage('landing')}>
                 Home
             </Typography>
-            <img src={rsvpButton} />
+
+            <img className={classes.rsvpImage} src={rsvpButton} />
+
             {
                 loading
                     ? (
@@ -342,8 +358,17 @@ const Rsvp: React.FC<Props> = ({ classes }) => {
                     : (
                         <div className={classes.formContainer}>
                             <FormControl>
-                                <FormControlLabel onChange={onAttendanceChange('notAttending')} control={<Radio checked={state.attendance === 'notAttending'} />} label='I regretfully cannot attend' />
-                                <FormControlLabel onChange={onAttendanceChange('attending')} control={<Radio checked={state.attendance === 'attending' } />} label='I would love to attend' />
+                                <FormControlLabel
+                                    onChange={onAttendanceChange('notAttending')}
+                                    control={<Radio checked={state.attendance === 'notAttending'} />}
+                                    label='I regretfully cannot attend'
+                                />
+                                <FormControlLabel
+                                    onChange={onAttendanceChange('attending')}
+                                    control={<Radio checked={state.attendance === 'attending' } />}
+                                    label='I would love to attend'
+                                />
+
                                 {
                                     state.attendance === 'attending' &&
                                         <FormControl>
@@ -421,6 +446,8 @@ const Rsvp: React.FC<Props> = ({ classes }) => {
                             <Button
                                 className={classes.saveButton}
                                 fullWidth
+                                variant='raised'
+                                color='secondary'
                                 disabled={
                                     !state.attendance
                                     || loading
@@ -442,9 +469,26 @@ const Rsvp: React.FC<Props> = ({ classes }) => {
             }
             {
                 state.formSaved && (
-                    <Typography>
+                    <Typography color='secondary' className={classes.shanks}>
                         Details saved, shanks!
                     </Typography>
+                )
+            }
+
+            {
+                state.formSaved && state.attendance === 'attending' && (
+                    <div className={classes.note}>
+
+                        <Typography align='center'  variant='caption'>
+                            Your attendance at our wedding is the greatest gift!
+                            We have no need for a registry having already started our lives together.
+                            However, should you choose to honour us with a gift, a wishing well will be available.
+                        </Typography>
+
+                        <Typography color='secondary' className={classes.shanks}>
+                            See you soon!
+                        </Typography>
+                    </div>
                 )
             }
         </div>
