@@ -219,13 +219,13 @@ const getDietaryPayload = (dietaryInfo: State['dietaryInfo']) => ({
     vegan: dietaryInfo === 'vegan',
 })
 
-let hasSavedDetails = false
 
 const Rsvp: React.FC<Props> = ({ classes }) => {
     const { setPage } = React.useContext(InvitationPageContext)
     const { authUser } = React.useContext(AuthContext)
     const [loading, setLoading] = React.useState(true)
     const [saving, setSaving] = React.useState(false)
+    const [hasSavedDetails, setHasSavedDetails] = React.useState(false)
     const [state, dispatch] = React.useReducer(reducer, DEFAULT_STATE)
 
     React.useEffect(() => {
@@ -235,8 +235,6 @@ const Rsvp: React.FC<Props> = ({ classes }) => {
                 `${PATH}/object/${authUser.authData.username}`,
                 {},
             )
-
-            hasSavedDetails = !!resp.guest
 
             if (resp.guest) {
                 const {
@@ -266,6 +264,8 @@ const Rsvp: React.FC<Props> = ({ classes }) => {
                     type: 'initialise',
                     value: savedState,
                 })
+
+                setHasSavedDetails(true)
             }
 
             setLoading(false)
@@ -443,27 +443,36 @@ const Rsvp: React.FC<Props> = ({ classes }) => {
                                         </FormControl>
                                 }
                             </FormControl>
-                            <Button
-                                className={classes.saveButton}
-                                fullWidth
-                                variant='raised'
-                                color='secondary'
-                                disabled={
-                                    !state.attendance
-                                    || loading
-                                    || saving
-                                    || state.formSaved
-                                    || state.pristine
-                                    || noEventsSelected
-                                }
-                                onClick={onSave}
-                            >
-                                {
-                                    saving
-                                        ? 'Saving...'
-                                        : 'Save'
-                                }
-                            </Button>
+
+                            {
+                                !state.formSaved && (
+                                    <Button
+                                        className={classes.saveButton}
+                                        fullWidth
+                                        variant='raised'
+                                        color='secondary'
+                                        disabled={
+                                            !state.attendance
+                                            || loading
+                                            || saving
+                                            || state.formSaved
+                                            || state.pristine
+                                            || noEventsSelected
+                                        }
+                                        onClick={onSave}
+                                    >
+                                        {
+                                            saving
+                                                ? setHasSavedDetails
+                                                    ? 'Updating...'
+                                                    : 'Saving...'
+                                                : setHasSavedDetails
+                                                    ? 'Update'
+                                                    : 'Save'
+                                        }
+                                    </Button>
+                                )
+                            }
                         </div>
                     )
             }

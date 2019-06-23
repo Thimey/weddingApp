@@ -13,7 +13,7 @@ import { InvitationPageContext } from './invitationPageContext'
 
 import ImageButton from 'components/ImageButton'
 
-const styles = createStyles({
+const styles = (theme: Theme) => createStyles({
     title: {
         ...funkyFont,
     },
@@ -30,6 +30,9 @@ const styles = createStyles({
     },
     actionContainer: {
         display: 'flex',
+        [theme.breakpoints.down('xs')]: {
+            flexDirection: 'column',
+        },
     },
     date: {
         ...funkyFont,
@@ -38,6 +41,13 @@ const styles = createStyles({
         marginTop: '2rem',
         fontWeight: 'bolder',
     },
+    note: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginTop: '2rem',
+        marginBottom: '1rem',
+    }
 })
 
 export interface Props extends WithStyles<typeof styles> {
@@ -67,6 +77,14 @@ const Landing: React.SFC<Props> = ({ classes }) => {
             <div className={classes.actionContainer}>
                 <ImageButton src={rsvpButton} alt='rsvp' onClick={() => setPage('rsvp')} />
                 <ImageButton src={downloadInviteButton} alt='downloadInvite' href={invitePdf} />
+            </div>
+
+            <div className={classes.note}>
+                    <a style={{ textDecoration: 'none' }} href="mailto:info@simonandkatswedding.com">
+                        <Typography color='secondary'>
+                            info@simonandkatswedding.com
+                        </Typography>
+                    </a>
             </div>
         </>
     )

@@ -22,7 +22,7 @@ export interface Props extends WithStyles<typeof styles> {
 
 }
 
-const Authenticator: React.FC = ({ children, classes }) => {
+const Authenticator: React.FC<Props> = ({ children, classes }) => {
     const auth = useAuth({
         authState: AuthState.NotAuthenticated,
         authData: null,
